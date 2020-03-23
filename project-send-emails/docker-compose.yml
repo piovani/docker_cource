@@ -1,6 +1,14 @@
 version: '3'
+volumes: 
+    dados:
 services: 
     db-send-email:
         image: postgres:9.6
         environment: 
             - "POSTGRES_PASSWORD=password"
+        volumes:
+            #volume dos dados
+            - dados:/var/lib/postgresql/data
+            # scripts
+            - ./scripts:/scripts
+            - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
